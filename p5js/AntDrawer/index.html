@@ -3,90 +3,9 @@
 
 	<head>
 		<title>AntDrawer</title>
-		<style>
-		</style>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
-		<script>
-			"use strict";
-
-			const numAnts = 10000;
-			const bgColorReps = 10000;
-			let ants = [];
-			let img;
-			let bgColor;
-
-			function setup() {
-				createCanvas(512, 512);
-				img = createImage(width, height);
-				img.loadPixels();
-				bgColor = color(0,10,50);
-				background(bgColor);
-				loadPixels();
-
-				for (let i=0; i<img.pixels.length; i++) {
-					if (random(1) < 0.5) {
-						img.pixels[i] = color(255);
-					} else {
-						img.pixels[i] = color(0);
-					}
-				}
-				img.updatePixels();
-				
-				for (let i=0; i<numAnts; i++) {
-					ants.push(new Ant());
-				} 
-
-				blendMode(ADD);
-			}
-
-			function draw() {
-				for (let i=0; i<ants.length; i++) {
-					ants[i].run();    
-				}
-
-				for (let i=0; i<bgColorReps; i++) {
-					pixels[parseInt(random(pixels.length))] = bgColor;
-				}
-
-				updatePixels();
-			}
-
-
-			class Ant {
-
-				constructor() {
-					this.posX = random(width);
-					this.posY = random(height);
-					this.col = color(127 + random(127), 127 + random(127), 127 + random(127));
-					this.loc = this.posX + this.posY * width;
-    				this.step = 2;
-					this.dirX = [ 0, this.step, 0, -this.step ];  // N, E, S, W
-					this.dirY = [ this.step, 0, -this.step, 0 ];
-					this.index = 0;
-				}
-
-				run() {
-					let refCol = img.pixels[this.loc];
-					if (refCol === color(0)) {
-						this.index++;
-						if (this.index > 3) this.index = 0;
-					} else {
-						this.index--;
-						if (this.index < 0) this.index = 3;
-					}
-
-					this.posX += this.dirX[this.index];
-					this.posX = constrain(this.posX, 0, width-1);
-					this.posY += this.dirY[this.index];   
-					this.posY = constrain(this.posY, 0, height-1);
-
-					this.loc = this.posX + this.posY * width;
-
-					pixels[this.loc] = this.col;  
-				}
-
-			}
-		</script>
+		<link rel="stylesheet" href="./main.css">
+		<script src="./p5.min.js"></script>
+		<script src="./main.js"></script>
 	</head>
 
 	<body>
