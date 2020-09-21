@@ -60,8 +60,9 @@ class Ant {
 	}
 
 	run() {
-		let refCol = img.pixels[this.loc];
-		if (refCol === color(0)) {
+		let r = img.pixels[parseInt(this.loc)];  // just the red channel in p5.js
+
+		if (r === 0) {
 			this.index++;
 			if (this.index > 3) this.index = 0;
 		} else {
